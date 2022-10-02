@@ -414,7 +414,6 @@
 			</footer>
 		</div>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 		<script src="https://unpkg.com/pdfmake@0.2.5/build/pdfmake.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 		<script>
@@ -691,9 +690,9 @@
 						from: '',
 						to: '',
 						invoiceNum: 1,
-						invoiceDate: moment().format('YYYY-MM-DD'),
+						invoiceDate: new Date().toISOString().split('T')[0],
 						terms: '',
-						dueDate: moment().format('YYYY-MM-DD'),
+						dueDate: new Date().toISOString().split('T')[0],
 						items: [
 							{
 								desc: '',
