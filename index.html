@@ -661,14 +661,12 @@
 							styles: {
 								headerLeft: {
 									bold: true,
-									// fontSize: 11,
 									color: 'black',
 									alignment: 'left',
 									margin: [0, 0, 0, 4],
 								},
 								headerRight: {
 									bold: true,
-									// fontSize: 11,
 									color: 'black',
 									alignment: 'right',
 									margin: [0, 0, 0, 4],
@@ -737,13 +735,11 @@
 							const image = document.createElement('img');
 							image.classList.add('max-h-20');
 							image.classList.add('max-w-40');
-							// the result image data
 							vm.form.logo = e.target.result;
 
 							image.src = e.target.result;
 							const child = vm.$refs.logo.childNodes[0];
 							vm.$refs.logo.replaceChild(image, child);
-							console.log(image);
 						};
 						reader.readAsDataURL(e.target.files[0]);
 					},
