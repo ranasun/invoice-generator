@@ -27,25 +27,23 @@
 	</head>
 	<body class="text-black bg-gray-200 font-light">
 		<div id="app" class="h-full w-full flex flex-col">
-			<header
-				class="w-full p-3 bg-gray-900 text-gray-300 shadow fixed z-10"
-			>
+			<header class="w-full p-3 bg-white shadow fixed z-10">
 				<nav
 					class="container mx-auto max-w-screen-lg flex justify-between items-center"
 				>
 					<div class="text-md flex items-center">
 						<div
-							class="rounded-sm flex items-center justify-center border text-white h-8 w-8 mr-2 text-xl"
+							class="rounded-full bg-black flex items-center justify-center border text-white h-10 w-10 mr-2 text-xl"
 						>
-							IG
+							ig
 						</div>
-						<span>Invoice Generator</span>
+						<h1 class="text-lg">Invoice Generator</h1>
 					</div>
 					<button
 						@click="previewHandler"
 						class="bg-black text-white py-2 px-5 rounded-sm text-sm"
 					>
-						View PDF
+						View Invoice
 					</button>
 				</nav>
 			</header>
