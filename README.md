@@ -1,3 +1,3 @@
 # Invoice-Generator
 
-A free invoice generator
+> A simple invoice generator
