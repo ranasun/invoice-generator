@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="A free invoice generator" />
+		<meta name="author" content="Randy Asuncion" />
+		<title>Invoice Generator</title>
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+			rel="stylesheet"
+		/>
+		<style>
+			body {
+				font-family: 'Roboto', sans-serif;
+			}
+			input,
+			textarea {
+				font-weight: 300;
+			}
+		</style>
+	</head>
+	<body class="text-black bg-gray-200 font-light">
+		<div id="app" class="h-full w-full flex flex-col">
+			<header
+				class="w-full p-3 bg-gray-900 text-gray-300 shadow fixed z-10"
+			>
+				<nav
+					class="container mx-auto max-w-screen-lg flex justify-between items-center"
+				>
+					<div class="text-md flex items-center">
+						<div
+							class="rounded-sm flex items-center justify-center border text-white h-8 w-8 mr-2 text-xl"
+						>
+							IG
+						</div>
+						<span>Invoice Generator</span>
+					</div>
+					<button
+						@click="previewHandler"
+						class="bg-blue-500 text-white py-2 px-5 rounded-sm text-sm"
+					>
+						View PDF
+					</button>
+				</nav>
+			</header>
+			<main
+				class="container mx-auto h-full max-w-screen-lg flex bg-white mt-20 p-2 sm:p-8 shadow"
+			>
+				<section class="w-full p-2">
+					<form ref="form" class="text-sm">
+						<section
+							class="flex flex-col sm:flex-row justify-between mb-2"
+						>
+							<div class="w-full">
+								<ul>
+									<li
+										class="my-5 flex justify-between sm:block"
+									>
+										<div
+											id="logo"
+											ref="logo"
+											class="text-gray-400 rounded-sm border bg-gray-50 inline-flex cursor-pointer relative"
+											@click="$refs.file.click()"
+										>
+											<div class="p-8">
+												+ Add your logo
+											</div>
+											<button
+												v-show="form.logo"
+												class="absolute rounded-sm h-4 w-4 bg-gray-900 text-white"
+												@click.stop.prevent="removeLogo"
+											>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													fill="none"
+													viewBox="0 0 24 24"
+													stroke="currentColor"
+												>
+													<path
+														stroke-linecap="round"
+														stroke-linejoin="round"
+														stroke-width="2"
+														d="M6 18L18 6M6 6l12 12"
+													/>
+												</svg>
+											</button>
+										</div>
+										<div
+											class="w-1/3 sm:hidden text-2xl text-right"
+										>
+											INVOICE
+										</div>
+										<input
+											ref="file"
+											class="hidden"
+											type="file"
+											@change="fileHandler"
+										/>
+									</li>
+									<li>
+										<textarea
+											class="resize-none w-full p-2 rounded-sm border bg-gray-50"
+											name="from"
+											id="from-txt"
+											rows="5"
+											v-model="form.from"
+											required
+											:placeholder="`Your Name or Company\nAddress\nPhone\nEmail\nWebsite`"
+										></textarea>
+									</li>
+									<li class="mt-5">
+										<p>Bill To</p>
+										<textarea
+											class="resize-none w-full p-2 rounded-sm border bg-gray-50"
+											name="from"
+											id="from-txt"
+											rows="3"
+											v-model="form.to"
+											:placeholder="`Recipient's Name or Company\nAddess`"
+											required
+										></textarea>
+									</li>
+								</ul>
+							</div>
+							<div class="sm:w-0 md:w-full"></div>
+							<div class="w-full">
+								<ul class="text-left sm:text-right">
+									<li class="my-5">
+										<div
+											class="hidden sm:block text-4xl text-right"
+										>
+											INVOICE
+										</div>
+									</li>
+									<li class="py-1 flex items-center">
+										<span class="w-1/3 pr-2"
+											>Invoice #</span
+										>
+										<input
+											required
+											class="w-2/3 text-right p-2 rounded-sm border bg-gray-50"
+											type="number"
+											v-model="form.invoiceNum"
+										/>
+									</li>
+									<li class="py-1 flex items-center">
+										<span class="w-1/3 pr-2">Date</span>
+										<input
+											required
+											class="w-2/3 text-right p-2 rounded-sm border bg-gray-50"
+											type="date"
+											v-model="form.invoiceDate"
+										/>
+									</li>
+									<li class="py-1 flex items-center">
+										<span class="w-1/3 pr-2">Terms</span>
+										<input
+											class="w-2/3 text-right p-2 rounded-sm border bg-gray-50"
+											type="text"
+											v-model="form.terms"
+											placeholder="Payment Terms"
+										/>
+									</li>
+									<li class="py-1 flex items-center">
+										<span class="w-1/3 pr-2">Due Date</span>
+										<input
+											required
+											class="w-2/3 text-right p-2 rounded-sm border bg-gray-50"
+											type="date"
+											v-model="form.dueDate"
+										/>
+									</li>
+								</ul>
+							</div>
+						</section>
+						<section class="my-5">
+							<div class="border border-black sm:hidden"></div>
+							<table class="table-fixed w-full">
+								<thead
+									class="py-3 border-b-2 border-black hidden sm:table-header-group"
+								>
+									<tr>
+										<th class="py-3 w-3/6 text-left">
+											Description
+										</th>
+										<th class="py-3 w-1/6 text-right">
+											Quantity
+										</th>
+										<th class="py-3 w-1/6 text-right">
+											Rate
+										</th>
+										<th class="py-3 w-1/6 text-right">
+											Amount
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr
+										v-for="(item, key) in form.items"
+										:key="key"
+										class="border-b-2 border-gray-200 flex flex-col sm:table-row"
+									>
+										<td
+											v-if="key > 0"
+											class="sm:hidden text-right"
+										>
+											<button
+												class="mt-1 rounded-sm h-4 w-4 bg-gray-900 text-white"
+												@click.prevent="removeItem(key)"
+											>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													viewBox="0 0 20 20"
+													fill="currentColor"
+												>
+													<path
+														fill-rule="evenodd"
+														d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+														clip-rule="evenodd"
+													/>
+												</svg>
+											</button>
+										</td>
+										<td
+											class="w-full sm:w-3/6 text-left flex sm:table-cell items-center"
+										>
+											<span
+												class="sm:hidden font-bold w-1/3"
+												>Description</span
+											>
+											<input
+												required
+												class="w-2/3 sm:w-full border border-gray-200 rounded-sm p-2 my-1"
+												type="text"
+												placeholder="Product/Service Description"
+												v-model="item.desc"
+											/>
+										</td>
+										<td
+											class="w-full sm:w-3/6 text-left flex sm:table-cell items-center"
+										>
+											<span
+												class="sm:hidden font-bold w-1/3"
+												>Quantity</span
+											>
+											<input
+												class="w-2/3 sm:w-full border border-gray-200 rounded-sm p-2 my-1 text-right"
+												type="number"
+												v-model="item.qty"
+												placeholder="Qty"
+											/>
+										</td>
+										<td
+											class="w-full sm:w-3/6 text-left flex sm:table-cell items-center"
+										>
+											<span
+												class="sm:hidden font-bold w-1/3"
+												>Rate</span
+											>
+											<input
+												required
+												class="w-2/3 sm:w-full border border-gray-200 rounded-sm p-2 my-1 text-right"
+												type="number"
+												v-model="item.rate"
+												placeholder="Rate"
+											/>
+										</td>
+										<td
+											class="w-full sm:w-3/6 text-right flex sm:table-cell items-center"
+										>
+											<span
+												class="sm:hidden font-bold w-1/3 text-left"
+												>Amount</span
+											>
+											<span
+												class="p-2 my-1 text-right w-full"
+												>$ {{ (item.qty || 1) *
+												item.rate | currency }}</span
+											>
+										</td>
+										<td
+											v-if="key > 0"
+											class="hidden sm:table-cell"
+										>
+											<button
+												class="m-2 h-4 w-4 bg-gray-900 text-white rounded-sm"
+												@click.prevent="removeItem(key)"
+											>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													viewBox="0 0 20 20"
+													fill="currentColor"
+												>
+													<path
+														fill-rule="evenodd"
+														d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+														clip-rule="evenodd"
+													/>
+												</svg>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<button
+								class="w-full sm:w-auto bg-blue-500 rounded-sm px-4 py-2 text-white mt-2 text-sm"
+								@click.prevent="addItem"
+							>
+								Add Item
+							</button>
+
+							<div class="flex flex-col-reverse sm:flex-row">
+								<div class="w-full sm:w-1/2 mt-5">
+									<p>Notes</p>
+									<textarea
+										class="resize-none w-full border rounded-sm bg-gray-50 p-2 mt-1"
+										rows="5"
+										v-model="form.notes"
+									></textarea>
+								</div>
+								<ul
+									class="text-left sm:text-right w-full sm:w-1/2 mt-5"
+								>
+									<li class="py-1 flex items-center">
+										<span class="w-2/3 pr-2">Subtotal</span>
+										<input
+											class="p-2 text-right"
+											type="text"
+											readonly
+											:value="toCurrency(subtotal)"
+										/>
+									</li>
+									<li class="py-1 flex items-center">
+										<span class="w-2/3 pr-2">Discount</span>
+										<input
+											class="p-2 rounded-sm border bg-gray-50 text-right"
+											type="number"
+											v-model="form.discount"
+										/>
+									</li>
+									<li class="py-1 flex items-center">
+										<span class="w-2/3 pr-2">Tax %</span>
+										<input
+											class="p-2 rounded-sm border bg-gray-50 text-right"
+											type="number"
+											step="0.01"
+											v-model="form.tax"
+										/>
+									</li>
+									<li class="py-1 flex items-center">
+										<span class="w-2/3 pr-2">Total</span>
+										<input
+											class="p-2 text-right"
+											type="text"
+											:value="toCurrency(total)"
+										/>
+									</li>
+									<li class="py-1 flex items-center">
+										<span class="w-2/3 pr-2"
+											>Amount Paid</span
+										>
+										<input
+											class="p-2 rounded-sm border bg-gray-50 text-right"
+											type="number"
+											v-model="form.paid"
+										/>
+									</li>
+									<li class="py-1 flex items-center">
+										<span class="w-2/3 pr-2 font-bold"
+											>Balance Due</span
+										>
+										<input
+											class="p-2 text-right font-bold"
+											type="text"
+											:value="toCurrency(balanceDue)"
+										/>
+									</li>
+								</ul>
+							</div>
+						</section>
+					</form>
+				</section>
+			</main>
+			<footer class="text-center p-2 text-sm text-gray-500 my-5">
+				<div class="">
+					A project by
+					<a class="text-blue-500" href="https://randya.dev"
+						>Randy Asuncion</a
+					>
+				</div>
+				<a
+					class="inline-block mt-1"
+					href="https://ko-fi.com/W7W834OVX"
+					target="_blank"
+					><img
+						style="border: 0px; height: 36px"
+						src="https://cdn.ko-fi.com/cdn/kofi1.png?v=2"
+						border="0"
+						alt="Buy Me a Coffee at ko-fi.com"
+				/></a>
+			</footer>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+		<script src="https://unpkg.com/pdfmake@0.2.5/build/pdfmake.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+		<script>
+			const app = new Vue({
+				el: '#app',
+				filters: {
+					currency(val) {
+						return parseFloat(val).toFixed(2);
+					},
+				},
+				computed: {
+					year() {
+						const date = new Date();
+
+						return date.getFullYear();
+					},
+					date() {
+						const date = new Date();
+
+						return `${date.getFullYear}-${date.get}`;
+					},
+					subtotal() {
+						const items = this.form.items;
+
+						return items.reduce(
+							(total, item) => (total += item.qty * item.rate),
+							0
+						);
+					},
+					total() {
+						const total =
+							parseFloat(this.subtotal) -
+							parseFloat(this.form.discount || 0);
+						const tax =
+							(total * parseFloat(this.form.tax || 0)) / 100;
+						return total + tax;
+					},
+					balanceDue() {
+						return (
+							parseFloat(this.total) -
+							parseFloat(this.form.paid || 0)
+						);
+					},
+					table() {
+						const table = [];
+						const header = [
+							{ text: 'Description', style: 'headerLeft' },
+							{ text: 'Quantity', style: 'headerRight' },
+							{ text: 'Rate', style: 'headerRight' },
+							{ text: 'Amount', style: 'headerRight' },
+						];
+						const filler = ['', '', '', ''];
+
+						table.push(header);
+
+						this.form.items.forEach((item) => {
+							table.push([
+								{
+									text: item.desc,
+									alignment: 'left',
+									style: 'lineItem',
+								},
+								{
+									text: item.qty,
+									alignment: 'right',
+									style: 'lineItem',
+								},
+								{
+									text: this.toCurrency(item.rate || 0),
+									alignment: 'right',
+									style: 'lineItem',
+								},
+								{
+									text: this.toCurrency(
+										(item.qty || 1) * item.rate
+									),
+									alignment: 'right',
+									style: 'lineItem',
+								},
+							]);
+						});
+
+						table.push(filler);
+
+						return table;
+					},
+					template() {
+						return {
+							defaultStyle: {
+								fontSize: 10,
+								pageSize: 'LETTER',
+							},
+							content: [
+								{
+									columns: [
+										[
+											{
+												image:
+													this.form.logo || 'blank',
+												fit: this.form.logo
+													? [150, 50]
+													: [0, 0],
+												margin: [0, 0, 0, 10],
+											},
+											this.form.from,
+											{
+												text: 'Bill To',
+												fontSize: 10,
+												margin: [0, 20, 0, 0],
+												bold: true,
+											},
+											this.form.to,
+										],
+										[
+											{
+												text: 'INVOICE',
+												alignment: 'right',
+												fontSize: 24,
+												margin: [0, 0, 0, 20],
+											},
+											{
+												columns: [
+													{
+														stack: [
+															'Invoice #',
+															'Date',
+															'Terms',
+															'Due Date',
+														],
+														alignment: 'right',
+														fontSize: 10,
+														bold: true,
+														lineHeight: 1.5,
+													},
+													{
+														stack: [
+															this.form
+																.invoiceNum ||
+																1,
+															this.form
+																.invoiceDate,
+															this.form.terms ||
+																' ',
+															this.form.dueDate,
+														],
+														alignment: 'right',
+														fontSize: 10,
+														lineHeight: 1.5,
+													},
+												],
+											},
+										],
+									],
+								},
+								{
+									table: {
+										headerRows: 1,
+										widths: ['*', 100, 100, 100],
+										body: this.table,
+									},
+									margin: [0, 20, 0, 0],
+									layout: 'lightHorizontalLines',
+								},
+								{
+									columns: [
+										[
+											{
+												table: {
+													headerRows: 1,
+													widths: ['*'],
+													body: [
+														[
+															{
+																text: 'Notes',
+																fillColor:
+																	'black',
+																color: 'white',
+															},
+														],
+														[
+															{
+																text:
+																	this.form
+																		.notes ||
+																	'\n\n\n\n\n',
+															},
+														],
+													],
+												},
+												margin: [0, 20, 0, 0],
+											},
+										],
+										{
+											columns: [
+												'',
+												{
+													stack: [
+														'Subtotal',
+														'Discount',
+														'Tax %',
+														'Total',
+														'Amount Paid',
+														{
+															text: 'Balance Due',
+															bold: true,
+														},
+													],
+													alignment: 'right',
+													lineHeight: 1.5,
+												},
+												{
+													stack: [
+														this.toCurrency(
+															this.subtotal || 0
+														),
+														`- ${this.toCurrency(
+															this.form
+																.discount || 0
+														)}`,
+														this.form.tax || 0,
+														this.toCurrency(
+															this.total || 0
+														),
+														`- ${this.toCurrency(
+															this.form.paid || 0
+														)}`,
+														{
+															text: this.toCurrency(
+																this
+																	.balanceDue ||
+																	0
+															),
+															bold: true,
+														},
+													],
+													alignment: 'right',
+													lineHeight: 1.5,
+												},
+											],
+										},
+									],
+								},
+							],
+							styles: {
+								headerLeft: {
+									bold: true,
+									// fontSize: 11,
+									color: 'black',
+									alignment: 'left',
+									margin: [0, 0, 0, 4],
+								},
+								headerRight: {
+									bold: true,
+									// fontSize: 11,
+									color: 'black',
+									alignment: 'right',
+									margin: [0, 0, 0, 4],
+								},
+								lineItem: {
+									margin: [0, 5, 0, 5],
+								},
+								header: {
+									background: 'black',
+									color: 'white',
+								},
+							},
+							images: {
+								blank: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=',
+							},
+						};
+					},
+				},
+				data: () => ({
+					form: {
+						logo: null,
+						from: '',
+						to: '',
+						invoiceNum: 1,
+						invoiceDate: moment().format('YYYY-MM-DD'),
+						terms: '',
+						dueDate: moment().format('YYYY-MM-DD'),
+						items: [
+							{
+								desc: '',
+								qty: 1,
+								rate: 0,
+							},
+						],
+						notes: '',
+						discount: '',
+						tax: '',
+						paid: '',
+					},
+				}),
+				methods: {
+					removeItem(index) {
+						this.form.items.splice(index, 1);
+					},
+					previewHandler() {
+						const valid = this.$refs.form.reportValidity();
+
+						if (!valid) return;
+
+						let vm = this;
+
+						pdfMake.fonts = {
+							Roboto: {
+								normal: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Regular.ttf',
+								bold: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Medium.ttf',
+							},
+						};
+
+						pdfMake.createPdf(this.template).open();
+					},
+					fileHandler(e) {
+						if (!e.target.files.length) return;
+						let vm = this;
+						var reader = new FileReader();
+						reader.onload = function (e) {
+							const image = document.createElement('img');
+							image.classList.add('max-h-20');
+							image.classList.add('max-w-40');
+							// the result image data
+							vm.form.logo = e.target.result;
+
+							image.src = e.target.result;
+							const child = vm.$refs.logo.childNodes[0];
+							vm.$refs.logo.replaceChild(image, child);
+							console.log(image);
+						};
+						reader.readAsDataURL(e.target.files[0]);
+					},
+					removeLogo() {
+						this.form.logo = null;
+						const div = document.createElement('div');
+						div.classList.add('p-8');
+						div.innerText = '+ Add your logo';
+						const child = this.$refs.logo.childNodes[0];
+						this.$refs.logo.replaceChild(div, child);
+					},
+					toCurrency(val) {
+						return `$ ${parseFloat(val).toFixed(2)}`;
+					},
+					addItem() {
+						this.form.items.push({
+							desc: '',
+							qty: '',
+							rate: '',
+						});
+					},
+				},
+			});
+		</script>
+	</body>
+</html>
