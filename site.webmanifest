@@ -1,7 +1,7 @@
 {
 	"name": "Invoice Generator",
 	"short_name": "InvoiceGen",
-	"start_url": "/",
+	"start_url": "/invoice-generator",
 	"scope": "/",
 	"icons": [
 		{
