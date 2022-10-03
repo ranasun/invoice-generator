@@ -33,9 +33,9 @@ Navigate to http://localhost:8000 after running any of the commands above.
 
 This web application is using the following libraries:
 
--   Vue
--   TailwindCss
--   pdfMake
+-   [Vue.js](https://vuejs.org/)
+-   [tailwindcss](https://tailwindcss.com/)
+-   [pdfmake](http://pdfmake.org/)
 
 ## Contributing
 
