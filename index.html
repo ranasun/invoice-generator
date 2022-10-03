@@ -509,7 +509,7 @@
 												image:
 													this.form.logo || 'blank',
 												fit: this.form.logo
-													? [150, 50]
+													? [200, 80]
 													: [0, 0],
 												margin: [0, 0, 0, 10],
 											},
@@ -727,8 +727,8 @@
 						var reader = new FileReader();
 						reader.onload = function (e) {
 							const image = document.createElement('img');
-							image.classList.add('max-h-20');
-							image.classList.add('max-w-40');
+							image.classList.add('max-h-40');
+							image.classList.add('object-contain');
 							vm.form.logo = e.target.result;
 
 							image.src = e.target.result;
