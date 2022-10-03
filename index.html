@@ -343,14 +343,14 @@
 											:value="toCurrency(subtotal)"
 										/>
 									</li>
-									<li class="py-1 flex items-center">
+									<!-- <li class="py-1 flex items-center">
 										<span class="w-2/3 pr-2">Discount</span>
 										<input
 											class="p-2 rounded-sm border bg-gray-50 text-right"
 											type="number"
 											v-model="form.discount"
 										/>
-									</li>
+									</li> -->
 									<li class="py-1 flex items-center">
 										<span class="w-2/3 pr-2">Tax %</span>
 										<input
@@ -368,7 +368,7 @@
 											:value="toCurrency(total)"
 										/>
 									</li>
-									<li class="py-1 flex items-center">
+									<!-- <li class="py-1 flex items-center">
 										<span class="w-2/3 pr-2"
 											>Amount Paid</span
 										>
@@ -377,7 +377,7 @@
 											type="number"
 											v-model="form.paid"
 										/>
-									</li>
+									</li> -->
 									<li class="py-1 flex items-center">
 										<span class="w-2/3 pr-2 font-bold"
 											>Balance Due</span
@@ -444,9 +444,7 @@
 						);
 					},
 					total() {
-						const total =
-							parseFloat(this.subtotal) -
-							parseFloat(this.form.discount || 0);
+						const total = parseFloat(this.subtotal);
 						const tax =
 							(total * parseFloat(this.form.tax || 0)) / 100;
 						return total + tax;
@@ -612,10 +610,10 @@
 												{
 													stack: [
 														'Subtotal',
-														'Discount',
+														// 'Discount',
 														'Tax %',
 														'Total',
-														'Amount Paid',
+														// 'Amount Paid',
 														{
 															text: 'Balance Due',
 															bold: true,
@@ -629,17 +627,17 @@
 														this.toCurrency(
 															this.subtotal || 0
 														),
-														`- ${this.toCurrency(
-															this.form
-																.discount || 0
-														)}`,
+														// `- ${this.toCurrency(
+														// 	this.form
+														// 		.discount || 0
+														// )}`,
 														this.form.tax || 0,
 														this.toCurrency(
 															this.total || 0
 														),
-														`- ${this.toCurrency(
-															this.form.paid || 0
-														)}`,
+														// `- ${this.toCurrency(
+														// 	this.form.paid || 0
+														// )}`,
 														{
 															text: this.toCurrency(
 																this
@@ -701,9 +699,9 @@
 							},
 						],
 						notes: '',
-						discount: '',
+						// discount: '',
 						tax: '',
-						paid: '',
+						// paid: '',
 					},
 				}),
 				methods: {
