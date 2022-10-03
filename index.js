@@ -20,7 +20,7 @@ const app = new Vue({
       const items = this.form.items;
 
       return items.reduce(
-        (total, item) => (total += item.qty * item.rate),
+        (total, item) => (total += item.qty * item.price),
         0
       );
     },
@@ -61,13 +61,13 @@ const app = new Vue({
             style: 'lineItem',
           },
           {
-            text: this.toCurrency(item.rate || 0),
+            text: this.toCurrency(item.price || 0),
             alignment: 'right',
             style: 'lineItem',
           },
           {
             text: this.toCurrency(
-              (item.qty || 1) * item.rate
+              (item.qty || 1) * item.price
             ),
             alignment: 'right',
             style: 'lineItem',
@@ -330,7 +330,7 @@ const app = new Vue({
       this.form.items.push({
         desc: null,
         qty: null,
-        rate: null,
+        price: null,
       });
     },
   },
