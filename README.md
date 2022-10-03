@@ -14,7 +14,19 @@ A simple invoice generator.
 
 ## Usage
 
-The `index.html` file can be opened inside a browser or hosted on a server.
+Run a local server using any of the following:
+
+1. Python
+    ```bash
+      python -m 'http.server'
+    ```
+2. NPM
+    ```bash
+    npm instal http-server
+    http-server -p 8000
+    ```
+
+Navigate to http://localhost:8000 after running any of the commands above.
 
 ## Libraries
 
