@@ -1,7 +1,8 @@
 {
 	"name": "Invoice Generator",
-	"short_name": "Invoice Generator",
+	"short_name": "InvoiceGen",
 	"start_url": "/",
+	"scope": "/",
 	"icons": [
 		{
 			"src": "./images/android-chrome-192x192.png",
