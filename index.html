@@ -63,7 +63,7 @@
 										<div
 											id="logo"
 											ref="logo"
-											class="text-gray-400 rounded-sm border bg-gray-50 inline-flex cursor-pointer relative"
+											class="text-gray-400 rounded-sm border inline-flex cursor-pointer relative"
 											@click="$refs.file.click()"
 										>
 											<div class="p-8">
@@ -103,7 +103,7 @@
 									</li>
 									<li>
 										<textarea
-											class="resize-none w-full p-2 rounded-sm border bg-gray-50"
+											class="resize-none w-full p-2 rounded-sm border"
 											name="from"
 											id="from-txt"
 											rows="5"
@@ -115,7 +115,7 @@
 									<li class="mt-5">
 										<p>Bill To</p>
 										<textarea
-											class="resize-none w-full p-2 rounded-sm border bg-gray-50"
+											class="resize-none w-full p-2 rounded-sm border"
 											name="from"
 											id="from-txt"
 											rows="3"
@@ -142,7 +142,7 @@
 										>
 										<input
 											required
-											class="w-2/3 text-right p-2 rounded-sm border bg-gray-50"
+											class="w-2/3 text-right p-2 rounded-sm border"
 											type="number"
 											v-model="form.invoiceNum"
 										/>
@@ -151,7 +151,7 @@
 										<span class="w-1/3 pr-2">Date</span>
 										<input
 											required
-											class="w-2/3 text-right p-2 rounded-sm border bg-gray-50"
+											class="w-2/3 text-right p-2 rounded-sm border"
 											type="date"
 											v-model="form.invoiceDate"
 										/>
@@ -159,7 +159,7 @@
 									<li class="py-1 flex items-center">
 										<span class="w-1/3 pr-2">Terms</span>
 										<input
-											class="w-2/3 text-right p-2 rounded-sm border bg-gray-50"
+											class="w-2/3 text-right p-2 rounded-sm border"
 											type="text"
 											v-model="form.terms"
 											placeholder="Payment Terms"
@@ -169,7 +169,7 @@
 										<span class="w-1/3 pr-2">Due Date</span>
 										<input
 											required
-											class="w-2/3 text-right p-2 rounded-sm border bg-gray-50"
+											class="w-2/3 text-right p-2 rounded-sm border"
 											type="date"
 											v-model="form.dueDate"
 										/>
@@ -326,7 +326,7 @@
 								<div class="w-full sm:w-1/2 mt-5">
 									<p>Notes</p>
 									<textarea
-										class="resize-none w-full border rounded-sm bg-gray-50 p-2 mt-1"
+										class="resize-none w-full border rounded-sm p-2 mt-1"
 										rows="5"
 										v-model="form.notes"
 									></textarea>
@@ -346,7 +346,7 @@
 									<!-- <li class="py-1 flex items-center">
 										<span class="w-2/3 pr-2">Discount</span>
 										<input
-											class="p-2 rounded-sm border bg-gray-50 text-right"
+											class="p-2 rounded-sm border text-right"
 											type="number"
 											v-model="form.discount"
 										/>
@@ -354,7 +354,7 @@
 									<li class="py-1 flex items-center">
 										<span class="w-2/3 pr-2">Tax %</span>
 										<input
-											class="p-2 rounded-sm border bg-gray-50 text-right"
+											class="p-2 rounded-sm border text-right"
 											type="number"
 											step="0.01"
 											v-model="form.tax"
@@ -373,7 +373,7 @@
 											>Amount Paid</span
 										>
 										<input
-											class="p-2 rounded-sm border bg-gray-50 text-right"
+											class="p-2 rounded-sm border text-right"
 											type="number"
 											v-model="form.paid"
 										/>
