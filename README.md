@@ -14,6 +14,14 @@ A simple invoice generator.
 
 The `index.html` file can be opened inside a browser or hosted on a server.
 
+## Libraries
+
+This web application is using the following libraries:
+
+-   Vue
+-   TailwindCss
+-   pdfMake
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
