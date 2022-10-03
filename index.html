@@ -5,6 +5,24 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content="A simple invoice generator" />
 		<meta name="author" content="Randy Asuncion" />
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/images/apple-touch-icon.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="/images/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="/images/favicon-16x16.png"
+		/>
+		<link rel="manifest" href="/site.webmanifest" />
 		<title>Invoice Generator</title>
 		<link rel="preconnect" href="https://fonts.gstatic.com" />
 		<link
@@ -455,10 +473,10 @@
 					table() {
 						const table = [];
 						const header = [
-							{ text: 'Description', style: 'headerLeft' },
-							{ text: 'Quantity', style: 'headerRight' },
-							{ text: 'Rate', style: 'headerRight' },
-							{ text: 'Amount', style: 'headerRight' },
+							{ text: 'ITEM', style: 'headerLeft' },
+							{ text: 'QTY', style: 'headerRight' },
+							{ text: 'PRICE', style: 'headerRight' },
+							{ text: 'AMOUNT', style: 'headerRight' },
 						];
 						const filler = ['', '', '', ''];
 
@@ -682,16 +700,16 @@
 				data: () => ({
 					form: {
 						logo: null,
-						from: '',
-						to: '',
+						from: null,
+						to: null,
 						invoiceNum: 1,
 						invoiceDate: null,
-						terms: '',
+						terms: null,
 						dueDate: null,
 						items: [],
-						notes: '',
+						notes: null,
 						// discount: '',
-						tax: '',
+						tax: null,
 						// paid: '',
 					},
 				}),
