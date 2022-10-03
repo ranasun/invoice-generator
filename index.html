@@ -685,16 +685,10 @@
 						from: '',
 						to: '',
 						invoiceNum: 1,
-						invoiceDate: new Date().toISOString().split('T')[0],
+						invoiceDate: null,
 						terms: '',
-						dueDate: new Date().toISOString().split('T')[0],
-						items: [
-							{
-								desc: null,
-								qty: null,
-								rate: null,
-							},
-						],
+						dueDate: null,
+						items: [],
 						notes: '',
 						// discount: '',
 						tax: '',
@@ -750,11 +744,17 @@
 					},
 					addItem() {
 						this.form.items.push({
-							desc: '',
-							qty: '',
-							rate: '',
+							desc: null,
+							qty: null,
+							rate: null,
 						});
 					},
+				},
+				mounted() {
+					const today = new Date().toISOString().split('T')[0];
+					this.form.invoiceDate = today;
+					this.form.dueDate = today;
+					this.addItem();
 				},
 			});
 		</script>
