@@ -11,18 +11,31 @@ A simple invoice generator.
 -   **Responsive** - use on desktop or mobile device.
 -   **Dynamic item list** - easily add or remove invoice line items.
 -   **Download as pdf** - download invoice as pdf for email attachments.
+-   **PWA** - can be installed on desktop and mobile devices.
 
 ## Usage
 
-The `index.html` file can be opened inside a browser or hosted on a server.
+Run a local server using any of the following:
+
+1. Python
+    ```bash
+      python -m 'http.server'
+    ```
+2. NPM
+    ```bash
+    npm instal http-server
+    http-server -p 8000
+    ```
+
+Navigate to http://localhost:8000 after running any of the commands above.
 
 ## Libraries
 
 This web application is using the following libraries:
 
--   Vue
--   TailwindCss
--   pdfMake
+-   [Vue.js](https://vuejs.org/)
+-   [tailwindcss](https://tailwindcss.com/)
+-   [pdfmake](http://pdfmake.org/)
 
 ## Contributing
 
