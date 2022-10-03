@@ -99,7 +99,7 @@ const app = new Vue({
                 },
                 this.form.from,
                 {
-                  text: 'Bill To',
+                  text: 'BILL TO',
                   fontSize: 10,
                   margin: [0, 20, 0, 0],
                   bold: true,
