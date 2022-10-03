@@ -11,6 +11,7 @@ A simple invoice generator.
 -   **Responsive** - use on desktop or mobile device.
 -   **Dynamic item list** - easily add or remove invoice line items.
 -   **Download as pdf** - download invoice as pdf for email attachments.
+-   **PWA** - can be installed on desktop and mobile devices.
 
 ## Usage
 
