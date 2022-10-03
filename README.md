@@ -4,6 +4,8 @@ A simple invoice generator.
 
 ![Screenshot](./screenshot.png 'Invoice Generator Screenshot')
 
+[Live Demo](https://ranasun.github.io/invoice-generator/)
+
 ## Features
 
 -   **Responsive** - use on desktop or mobile device.
