@@ -29,9 +29,9 @@ Run a local server using any of the following:
 
 Navigate to http://localhost:8000 after running any of the commands above.
 
-## Libraries
+## Techbology Stack
 
-This web application is using the following libraries:
+This application is built with the following technologies:
 
 -   [Vue.js](https://vuejs.org/)
 -   [tailwindcss](https://tailwindcss.com/)
