@@ -29,7 +29,7 @@ Run a local server using any of the following:
 
 Navigate to http://localhost:8000 after running any of the commands above.
 
-## Techbology Stack
+## Technology Stack
 
 This application is built with the following technologies:
 
